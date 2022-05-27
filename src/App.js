@@ -1,10 +1,10 @@
 import './App.css';
-import BMap from './components/Map/Map';
+import KyupidMap from './components/Map/Map';
 
 function App() {
   return (
     <div>
-      <BMap />
+      <KyupidMap />
     </div>
   );
 }
