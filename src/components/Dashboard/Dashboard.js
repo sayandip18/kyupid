@@ -5,12 +5,12 @@ import './Dashboard.css';
 function Dashboard({data}) {
     return (
         <div className="dashboard">
-            Area: {data.areaName}
-            Pro users: {data.totalPro}
-            General users: {data.totalGeneral}
-            Male users: {data.male}
-            Female users: {data.female}
-            Total matches: {data.totalMatches}
+            <div>Area: {data.areaName}</div>
+            <div>Pro users: {data.totalPro}</div>
+            <div>General users: {data.totalUsers}</div>
+            <div>Male users: {data.male}</div>
+            <div>Female users: {data.female}</div>
+            <div>Total matches: {data.totalMatches}</div>      
         </div>
     )
 }

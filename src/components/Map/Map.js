@@ -99,8 +99,8 @@ function KyupidMap() {
         setAreaStats({
             areaName: e.features[0].properties.name,
             totalUsers: user[areaID].total_users,
-            male: user[areaID].totalMale,
-            female: user[areaID].totalFemale,
+            male: user[areaID].male,
+            female: user[areaID].female,
             totalPro: user[areaID].pro_users,
             proMale: user[areaID].pro_male,
             proFemale: user[areaID].pro_female,
