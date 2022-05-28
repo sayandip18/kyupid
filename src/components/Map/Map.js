@@ -3,12 +3,15 @@ import axios from 'axios';
 import Map, {Source, Layer} from 'react-map-gl';
 
 import {layerStyle} from '../LayerStyles/LayerStyles';
+import Dashboard from '../Dashboard/Dashboard';
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 
 function KyupidMap() {
     const [area, setArea] = useState();
     const [user, setUser] = useState();
+    const [showDashboard, setDashboard] = useState(false);
+    const [areaStats, setAreaStats] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -91,7 +94,19 @@ function KyupidMap() {
     }, [])
 
     const onHover = e => {
-        console.log(e.features[0].properties);
+        const areaID = e.features[0].properties.area_id;
+        setDashboard(!showDashboard);
+        setAreaStats({
+            areaName: e.features[0].properties.name,
+            totalUsers: user[areaID].total_users,
+            male: user[areaID].totalMale,
+            female: user[areaID].totalFemale,
+            totalPro: user[areaID].pro_users,
+            proMale: user[areaID].pro_male,
+            proFemale: user[areaID].pro_female,
+            totalMatches: user[areaID].total_matches,
+        })
+        console.log(user[areaID]);
     }
 
     return (
@@ -114,6 +129,7 @@ function KyupidMap() {
                     <Layer {...layerStyle} />
                 </Source>}
             </Map>
+            {showDashboard && areaStats && <Dashboard data={areaStats} />}
         </div>
     )
 }
