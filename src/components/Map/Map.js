@@ -82,7 +82,6 @@ function KyupidMap() {
                 area["properties"]["totalGeneralUsers"] = areaWise[area.properties.area_id]["pro_users"];
             })
 
-            console.log(areaData.data);
             setArea(areaData.data);
         };
 
@@ -90,12 +89,33 @@ function KyupidMap() {
     }, [])
 
     const onHover = e => {
-        console.log(e);
+        console.log(e.features[0].properties);
     }
+
+    const layerStyle = {
+        id: "area",
+        type: "fill",
+        paint: {
+        "fill-outline-color": "black",
+        'fill-color': {
+            property: 'totalProUsers',
+            stops: [
+                [90,"#A0FDEC"],
+                [120,"#A0F6FD"],
+                [150,"#A0DDFD"],
+                [180,'#03A7FF'],
+                [220,"#0375FF"],
+                [250,"#0329FF"],
+                [280,"#021DB3"],
+                [300,"#02157E"]
+            ]
+        }}
+    };
 
     return (
         <div style={{position: 'absolute', left: 0, top: 0, right: 0, bottom: 0}}>
             <Map
+                doubleClickZoom={false}
                 initialViewState={{
                     latitude: 12.89,
                     longitude: 77.47,
@@ -104,10 +124,12 @@ function KyupidMap() {
                     bearing: 340,
                 }}
                 mapStyle={"mapbox://styles/mapbox/dark-v9"}
+                interactiveLayerIds={["area"]}
                 mapboxAccessToken={MAPBOX_TOKEN}
-                onMouseMove={onHover}           
+                onClick={onHover}    
             >
                 {area && <Source type="geojson" data={area}>
+                    <Layer {...layerStyle} />
                 </Source>}
             </Map>
         </div>
