@@ -1,4 +1,3 @@
-import './App.css';
 import KyupidMap from './components/Map/Map';
 
 function App() {
