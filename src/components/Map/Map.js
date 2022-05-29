@@ -1,14 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import Map, {Source, Layer} from 'react-map-gl';
+import mapboxgl from 'mapbox-gl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './Map.css';
 
 import {layerStyle} from '../LayerStyles/LayerStyles';
 import Dashboard from '../Dashboard/Dashboard';
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
+
+mapboxgl.workerClass = MapboxWorker;
 
 function KyupidMap() {
     const [area, setArea] = useState();
