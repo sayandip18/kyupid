@@ -2,6 +2,9 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import Map, {Source, Layer} from 'react-map-gl';
 
+import 'mapbox-gl/dist/mapbox-gl.css';
+import './Map.css';
+
 import {layerStyle} from '../LayerStyles/LayerStyles';
 import Dashboard from '../Dashboard/Dashboard';
 
@@ -95,7 +98,7 @@ function KyupidMap() {
 
     const onHover = e => {
         const areaID = e.features[0].properties.area_id;
-        setDashboard(!showDashboard);
+        setDashboard(true);
         setAreaStats({
             areaName: e.features[0].properties.name,
             totalUsers: user[areaID].total_users,
@@ -106,7 +109,7 @@ function KyupidMap() {
             proFemale: user[areaID].pro_female,
             totalMatches: user[areaID].total_matches,
         })
-        console.log(user[areaID]);
+        console.log(areaStats);
     }
 
     return (
@@ -128,8 +131,10 @@ function KyupidMap() {
                 {area && <Source type="geojson" data={area}>
                     <Layer {...layerStyle} />
                 </Source>}
+                {showDashboard && <div className="tooltip">
+                    <Dashboard data={areaStats} />
+                </div>}
             </Map>
-            {showDashboard && areaStats && <Dashboard data={areaStats} />}
         </div>
     )
 }
