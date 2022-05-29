@@ -125,7 +125,7 @@ function KyupidMap() {
                 }}
                 mapStyle={"mapbox://styles/mapbox/dark-v9"}
                 interactiveLayerIds={["area"]}
-                mapboxAccessToken={MAPBOX_TOKEN}
+                mapboxAccessToken={'pk.eyJ1Ijoic2F5YW5kaXAiLCJhIjoiY2t0dnlyM2gwMmYxNTJwcTVjMm5wOWhkayJ9.Pr4cwn1Nw_5EbTBuaE041Q'}
                 onClick={onHover}    
             >
                 {area && <Source type="geojson" data={area}>
