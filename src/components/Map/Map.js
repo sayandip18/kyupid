@@ -20,6 +20,8 @@ function KyupidMap() {
     const [user, setUser] = useState();
     const [showDashboard, setDashboard] = useState(false);
     const [areaStats, setAreaStats] = useState();
+    const [x, setX] = useState();
+    const [y, setY] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -114,7 +116,8 @@ function KyupidMap() {
             proFemale: user[areaID].pro_female,
             totalMatches: user[areaID].total_matches,
         })
-        console.log(areaStats);
+        setX(e.point.x);
+        setY(e.point.y)
     }
 
     return (
@@ -136,7 +139,7 @@ function KyupidMap() {
                 {area && <Source type="geojson" data={area}>
                     <Layer {...layerStyle} />
                 </Source>}
-                {showDashboard && <div className="tooltip">
+                {showDashboard && <div className="tooltip" style={{left: x, top: y}}>
                     <Dashboard data={areaStats} />
                 </div>}
             </Map>
