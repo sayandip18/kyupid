@@ -1,9 +1,12 @@
+import React, {useState} from 'react';
 import KyupidMap from './components/Map/Map';
 
 function App() {
+  const [type, setType] = useState("general");
+
   return (
     <div>
-      <KyupidMap />
+      <KyupidMap type={type} />
     </div>
   );
 }

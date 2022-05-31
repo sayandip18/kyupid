@@ -6,7 +6,8 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './Map.css';
 
-import {layerStyle} from '../LayerStyles/LayerStyles';
+import {proStyle} from '../LayerStyles/proLayerStyles';
+import {generalStyle} from '../LayerStyles/generalLayerStyles';
 import Dashboard from '../Dashboard/Dashboard';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
@@ -15,7 +16,7 @@ const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 
 mapboxgl.workerClass = MapboxWorker;
 
-function KyupidMap() {
+function KyupidMap({type}) {
     const [area, setArea] = useState();
     const [user, setUser] = useState();
     const [showDashboard, setDashboard] = useState(false);
@@ -93,8 +94,9 @@ function KyupidMap() {
             setUser(areaWise);
 
             areaData.data["features"].forEach((area) => {
-                area["properties"]["totalProUsers"] = areaWise[area.properties.area_id]["total_users"];
-                area["properties"]["totalGeneralUsers"] = areaWise[area.properties.area_id]["pro_users"];
+                console.log(area);
+                area["properties"]["totalProUsers"] = areaWise[area.properties.area_id]["pro_users"];
+                area["properties"]["totalGeneralUsers"] = areaWise[area.properties.area_id]["total_users"];
             })
 
             setArea(areaData.data);
@@ -121,10 +123,14 @@ function KyupidMap() {
         setY(e.point.y)
     }
 
+    let mapStyle;
+
+    if(type === 'pro') mapStyle = proStyle;
+    else mapStyle = generalStyle;
+
     return (
         <div style={{position: 'absolute', left: 0, top: 0, right: 0, bottom: 0}}>
             <Map
-                doubleClickZoom={false}
                 initialViewState={{
                     latitude: 12.89,
                     longitude: 77.47,
@@ -138,7 +144,7 @@ function KyupidMap() {
                 onMouseMove={onHover}    
             >
                 {area && <Source type="geojson" data={area}>
-                    <Layer {...layerStyle} />
+                    <Layer {...mapStyle} />
                 </Source>}
                 {showDashboard && <div className="tooltip" style={{left: x, top: y}}>
                     <Dashboard data={areaStats} />
