@@ -94,7 +94,6 @@ function KyupidMap({type}) {
             setUser(areaWise);
 
             areaData.data["features"].forEach((area) => {
-                console.log(area);
                 area["properties"]["totalProUsers"] = areaWise[area.properties.area_id]["pro_users"];
                 area["properties"]["totalGeneralUsers"] = areaWise[area.properties.area_id]["total_users"];
             })

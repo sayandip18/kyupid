@@ -1,0 +1,19 @@
+.toggle {
+    border: 1px solid white;
+    width: 20%;
+    z-index: 10;
+    background-color: black;
+}
+
+.toggle div {
+    color: blue;
+    text-align: center;
+    height: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid white;
+}
+
+.toggle:hover {
+    cursor: pointer;
+}
