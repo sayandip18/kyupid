@@ -104,6 +104,7 @@ function KyupidMap() {
     }, [])
 
     const onHover = e => {
+        // console.log(e.features[0]);
         const areaID = e.features[0].properties.area_id;
         setDashboard(true);
         setAreaStats({
@@ -134,7 +135,7 @@ function KyupidMap() {
                 mapStyle={"mapbox://styles/mapbox/dark-v9"}
                 interactiveLayerIds={["area"]}
                 mapboxAccessToken={'pk.eyJ1Ijoic2F5YW5kaXAiLCJhIjoiY2t0dnlyM2gwMmYxNTJwcTVjMm5wOWhkayJ9.Pr4cwn1Nw_5EbTBuaE041Q'}
-                onClick={onHover}    
+                onMouseMove={onHover}    
             >
                 {area && <Source type="geojson" data={area}>
                     <Layer {...layerStyle} />
